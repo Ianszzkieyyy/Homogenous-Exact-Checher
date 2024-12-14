@@ -26,11 +26,12 @@ class TestExactWindow(ctk.CTkToplevel):
         self.label_helper("The partial differentiation of N with respect to x is:")
         self.equation_label_helper(f'∂N/∂X = {self.derivative_x_respect}')
         self.label_helper("The partial differentiations of M and N must be equal")
-        self.equation_label_helper(f'∂M/∂Y = {self.derivative_y_respect} = {self.derivative_x_respect} = ∂N/∂X')
 
         if self.isExact:
+            self.equation_label_helper(f'∂M/∂Y = {self.derivative_y_respect} = {self.derivative_x_respect} = ∂N/∂X')
             self.result_string = ["is Equal", "is Exact"]
         else:
+            self.equation_label_helper(f'∂M/∂Y = {self.derivative_y_respect} ≠ {self.derivative_x_respect} = ∂N/∂X')
             self.result_string = ["is not Equal", "is not Exact"]
 
         self.label_helper(f"∂M/∂Y {self.result_string[0]} to ∂N/∂X\nTherefore, the differential equation {self.result_string[1]}", pady=(10, 20))

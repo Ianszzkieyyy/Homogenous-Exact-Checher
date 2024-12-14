@@ -69,7 +69,10 @@ class TestHomogWindow(ctk.CTkToplevel):
         else:
             self.result_string = ["is not Equal", "is not Homogenous"]
 
-        self.label_helper(f"Degree of M(x,y) ({self.func_objects[0].degree}) {self.result_string[0]} to Degree of N(x,y) ({self.func_objects[1].degree})\nTherefore, the differential equation {self.result_string[1]}", pady=(10, 20))
+        if self.func_objects[0].degree == 0 or self.func_objects[1].degree == 0:
+            self.label_helper(f"Since one of the functions is not a Homogenous function\nThe differential equation is not Homogenous", pady=(10, 20))
+        else:
+            self.label_helper(f"Degree of M(x,y) ({self.func_objects[0].degree}) {self.result_string[0]} to Degree of N(x,y) ({self.func_objects[1].degree})\nTherefore, the differential equation {self.result_string[1]}", pady=(10, 20))
 
 
         exit_button = ctk.CTkButton(
