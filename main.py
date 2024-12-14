@@ -1,8 +1,9 @@
 import customtkinter as ctk
 import tkinter as tk
 from eq_parser import EQParser 
-from check_exact import TestExact
-from check_homogenous import TestHomogenous
+from test_exact_window import TestExactWindow
+from test_homog_window import TestHomogWindow
+from test_homog import TestHomogenous
 
 
 class InputFrame(ctk.CTkFrame):
@@ -154,6 +155,9 @@ class DEChecker:
         self.input_var = tk.StringVar()
         self.option_var = tk.StringVar(value="Select a Type")
 
+        self.test_exact_window = None
+        self.test_homog_window = None
+
         # Input Frame
         self.input_frame = InputFrame(self.window, self.input_var)
         self.input_frame.pack(pady=(50, 0))
@@ -184,39 +188,15 @@ class DEChecker:
         if self.option_var.get() == "Select a Type":
             self.options_frame.option_label.configure(text="Please Select Type of Operation", text_color="red")
         else:
-            self.options_frame.option_label.configure(text="Select Type of Operation to Perform", text_color="white")
             checkType = self.option_var.get()
+            self.options_frame.option_label.configure(text="Select Type of Operation to Perform", text_color="white")
             print(f"M: {M}, N: {N}, Type: {checkType}")
             if checkType == "Exact Check":
-                TestExact(M, N)
+                if self.test_exact_window is None or not self.test_exact_window.winfo_exists():
+                    self.test_exact_window = TestExactWindow(M = M, N = N)
             elif checkType == "Homogenous Check":
-                M_degree = TestHomogenous(M, 'M')
-                N_degree = TestHomogenous(N, 'N')
-
-                if M_degree == N_degree:
-                    print(f"The differential equation is homogeneous of degree {M_degree}.")
-                else:
-                    print("The differential equation is not homogeneous.")
-
+                if self.test_homog_window is None or not self.test_homog_window.winfo_exists():
+                    self.test_homog_window = TestHomogWindow(M = M, N = N)   
     
-
 if __name__ == '__main__':
     DEChecker().window.mainloop()
-
-
-
-
-
-
-
-
-
-
-
-
-
-# self.button_list = {
-#     "numbers": ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-#     "operators": ['+', '-', '*', '/', '(', ')', '^', '='],
-#     "functions": ['sin()', 'cos()', 'tan()', 'x', 'dx', 'cot()', 'sec()', 'csc()', 'y', 'dy']
-# }
