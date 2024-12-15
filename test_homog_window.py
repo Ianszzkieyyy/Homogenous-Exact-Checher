@@ -99,7 +99,7 @@ class TestHomogWindow(ctk.CTkToplevel):
 
     def render_latex(self, latex_string):
 
-        fig, ax = plt.subplots(figsize=(6, 1))
+        fig, ax = plt.subplots(figsize=(8, 1))
         ax.text(0.5, 0.5, f'${latex_string}$', fontsize=24, ha='center', va='center', color='white')
         ax.axis('off')
         fig.patch.set_facecolor('#363636')

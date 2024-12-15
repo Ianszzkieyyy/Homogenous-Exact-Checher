@@ -11,12 +11,12 @@ class InputFrame(ctk.CTkFrame):
         super().__init__(master, fg_color="transparent")
         self.input_var = input_var
 
-        input_label = ctk.CTkLabel(
+        self.input_label = ctk.CTkLabel(
             master=self,
             text="Input equation here: ",
             font=('Verdana', 18)
         )
-        input_label.pack(
+        self.input_label.pack(
             pady = (20, 15)
         )
 
@@ -38,7 +38,7 @@ class InputFrame(ctk.CTkFrame):
             width=100,
             height=50, 
             corner_radius=16,
-            fg_color="blue",
+            fg_color="#333333",
             font=('Verdana', 16),
         )
         input_clear.pack(side=tk.RIGHT)
@@ -148,7 +148,7 @@ class OptionsFrame(ctk.CTkFrame):
 
 class DEChecker:
     def __init__(self):
-        self.window = ctk.CTk()
+        self.window = ctk.CTk(fg_color='gray10')
         self.window.geometry("900x600")
         self.window.title('Differential Equation Checker')
 
@@ -184,19 +184,40 @@ class DEChecker:
 
 
     def process_input(self):
-        M, N = EQParser(self.input_var.get())
-        if self.option_var.get() == "Select a Type":
-            self.options_frame.option_label.configure(text="Please Select Type of Operation", text_color="red")
-        else:
-            checkType = self.option_var.get()
-            self.options_frame.option_label.configure(text="Select Type of Operation to Perform", text_color="white")
-            print(f"M: {M}, N: {N}, Type: {checkType}")
-            if checkType == "Exact Check":
-                if self.test_exact_window is None or not self.test_exact_window.winfo_exists():
-                    self.test_exact_window = TestExactWindow(M = M, N = N)
-            elif checkType == "Homogenous Check":
-                if self.test_homog_window is None or not self.test_homog_window.winfo_exists():
-                    self.test_homog_window = TestHomogWindow(M = M, N = N)   
+        try:
+            M, N = EQParser(self.input_var.get())
+            if self.option_var.get() == "Select a Type":
+                self.options_frame.option_label.configure(text="Please Select Type of Operation", text_color="red")
+            else:
+                checkType = self.option_var.get()
+                self.options_frame.option_label.configure(text="Select Type of Operation to Perform", text_color="white")
+                print(f"M: {M}, N: {N}, Type: {checkType}")
+                if checkType == "Exact Check":
+                    if self.test_exact_window is None or not self.test_exact_window.winfo_exists():
+                        self.test_exact_window = TestExactWindow(M = M, N = N)
+                elif checkType == "Homogenous Check":
+                    if self.test_homog_window is None or not self.test_homog_window.winfo_exists():
+                        self.test_homog_window = TestHomogWindow(M = M, N = N)
+
+            self.input_frame.input_label.configure(
+                text = "Input equation here: ",
+            )
+            self.input_frame.input_entry.configure(
+                border_width = 1,
+                border_color = "gray",
+            )
+
+        except TypeError:
+            self.input_frame.input_label.configure(
+                text = "Please enter a valid input",
+            )
+            self.input_frame.input_entry.configure(
+                border_width = 3,
+                border_color = "red",
+            )
+        
+
+           
     
 if __name__ == '__main__':
     DEChecker().window.mainloop()
