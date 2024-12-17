@@ -51,12 +51,13 @@ class TestHomogWindow(ctk.CTkToplevel):
             self.label_helper(f'Turning {obj.name}(x ,y) into {obj.name}(λx, λy)')
             self.equation_label_helper(f'{obj.sub_lambda}')
 
-            self.label_helper(f"Simplifying {obj.name}(λx, λy)")
-            self.equation_label_helper(f'{obj.simplified}')
-
             self.label_helper(f"Factoring out λ from {obj.name}(λx, λy)")
             self.equation_label_helper(f'{obj.factored}')
 
+            self.label_helper(f"Simplifying {obj.name}(λx, λy)")
+            self.equation_label_helper(f'{obj.simplified}')
+
+        
             if obj.degree != 0:
                 self.label_helper(f"{obj.name}(x,y) is Homogenous at {obj.degree} Degree", pady=(0, 20))
             else:

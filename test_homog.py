@@ -8,12 +8,12 @@ def TestHomogenous(function, name):
         y: λ * y
     })
 
-    function_lambda_simplified = sp.simplify(function_lambda)
-    factored = sp.factor(function_lambda_simplified)
-
+    factored = sp.factor(function_lambda)
+    factored_simplified = sp.simplify(factored)
+    
     try:
         coef, degree = factored.as_coeff_exponent(λ)
-        return (name, function_lambda, function_lambda_simplified, factored, degree)
+        return (name, function_lambda, factored, factored_simplified, degree)
     
     except Exception as e:
         return None
