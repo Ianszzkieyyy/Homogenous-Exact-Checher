@@ -75,11 +75,14 @@ class ButtonFrame(ctk.CTkFrame):
 
         def create_buttons(btn_name, btn_root, btn_type):
             def button_click():
-                self.input_var.set(self.input_var.get() + btn_name)
+                cursor_position = self.input_entry.index("insert")
+                self.input_var.set(
+                    self.input_var.get()[:cursor_position] + btn_name + self.input_var.get()[cursor_position:]
+                )
                 if btn_type == "functions":
                     self.input_entry.icursor(len(self.input_var.get()) - 1)
                 else:
-                    self.input_entry.icursor(len(self.input_var.get()))
+                    self.input_entry.icursor(cursor_position + len(btn_name))
 
 
             return ctk.CTkButton(
@@ -414,7 +417,7 @@ class DEChecker:
 
         except TypeError:
             self.input_frame.input_label.configure(
-                text = "Please enter a valid input",
+                text = "Input equation must be in the format M(x,y)dx + N(x,y)dy = 0",
             )
             self.input_frame.input_entry.configure(
                 border_width = 3,
