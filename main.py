@@ -79,7 +79,7 @@ class ButtonFrame(ctk.CTkFrame):
                 self.input_var.set(
                     self.input_var.get()[:cursor_position] + btn_name + self.input_var.get()[cursor_position:]
                 )
-                if btn_type == "functions":
+                if btn_type == "functions" and (btn_name != 'e' and btn_name != 'a'):
                     self.input_entry.icursor(len(self.input_var.get()) - 1)
                 else:
                     self.input_entry.icursor(cursor_position + len(btn_name))
@@ -257,7 +257,7 @@ class DEChecker:
             button_list={
                 "numbers": ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
                 "operators": ['+', '-', '*', '/', '^', '(', ')', 'x', 'y', '='],
-                "functions": ['sin()', 'cos()', 'tan()', 'dx', 'cot()', 'sec()', 'csc()', 'dy', 'ln()', 'log()', 'e', 'arc'],
+                "functions": ['sin()', 'cos()', 'tan()', 'dx', 'cot()', 'sec()', 'csc()', 'dy', 'ln()', 'log()', 'e', 'a'],
             },
             input_var=self.input_var,
             input_entry=self.input_frame.input_entry
@@ -332,10 +332,16 @@ class DEChecker:
                     b.) The basic input keyboard offers arithmetic digits, as well as the 
                     basic operators
                     
-                    c.) The functions input keyboard provide trigonometric functions as 
-                    of the moment. More will be added soon
+                    c.) The functions input keyboard provide trigonometric, inverse trig, 
+                    and log functions as of the moment.
 
-                    d.) Use the toggle on the left-most side of the input keyboard to 
+                    d.) the 'a' key symbolizes the arc in inverse trigonometric
+                    functions. Pair it with any of the trig functions if needed 
+                    (e.g. asin())
+
+                    e.) always include the * sign when multiplying a term with a function.
+
+                    f.) Use the toggle on the left-most side of the input keyboard to 
                     switch between modes.
 
                 3. Switch Modes
