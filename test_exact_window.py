@@ -7,7 +7,7 @@ from test_exact import TestExact
 
 
 class TestExactWindow(ctk.CTkToplevel):
-    def __init__(self, *args, fg_color = None, M, N, **kwargs,):
+    def __init__(self, *args, fg_color = 'gray15', M, N, **kwargs,):
         super().__init__(*args, fg_color=fg_color, **kwargs)
         self.geometry("800x650")
         self.after(100, self.lift)
@@ -41,7 +41,8 @@ class TestExactWindow(ctk.CTkToplevel):
             text='Exit',
             command=lambda: self.destroy(),
             font=("Verdana", 16, 'bold'),
-            fg_color='green',
+            fg_color='blue2',
+            hover_color='blue4',
         )
         exit_button.pack()
 
@@ -60,10 +61,10 @@ class TestExactWindow(ctk.CTkToplevel):
 
     def render_latex(self, latex_string):
 
-        fig, ax = plt.subplots(figsize=(8, 1))
+        fig, ax = plt.subplots(figsize=(9, 1))
         ax.text(0.5, 0.5, f'${latex_string}$', fontsize=24, ha='center', va='center', color='white')
         ax.axis('off')
-        fig.patch.set_facecolor('#363636')
+        fig.patch.set_facecolor('#262626')
 
         canvas = FigureCanvasTkAgg(fig, master=self)
         canvas.draw()
